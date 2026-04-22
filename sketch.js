@@ -3,8 +3,8 @@ let tideHeight = 0;
 let prevTideHeight = 0;
 let windSpeed = 0;
 let windDirDeg = 0;
-let dataDate   = '';
-let lastFetch  = 0;
+let dataDate  = '';
+let lastFetch = 0;
 let dataLoaded = false;
 let noiseOffset = 0;
 
@@ -124,6 +124,20 @@ function draw() {
   image(img, 0, 0, width, height);
   noTint();
 
+  // sky gradient — darkens clouds at top, fades to transparent at horizon
+  let skyGrad = drawingContext.createLinearGradient(0, 0, 0, horizonY);
+  skyGrad.addColorStop(0,   'rgba(10, 15, 25, 0.72)');
+  skyGrad.addColorStop(0.6, 'rgba(10, 15, 25, 0.35)');
+  skyGrad.addColorStop(1,   'rgba(10, 15, 25, 0.0)');
+  drawingContext.fillStyle = skyGrad;
+  drawingContext.fillRect(0, 0, width, horizonY);
+
+  // day/night overlay
+  let dl = getDaylight();
+  fill(dl.r, dl.g, dl.b, dl.alpha);
+  noStroke();
+  rect(0, 0, width, height);
+
   // pebbles sit over the photo, under the waves
   tint(255, 160);
   image(pebbleLayer, 0, 0);
@@ -229,7 +243,7 @@ function draw() {
     let rx     = map(nx, 0, 1, 0, width);
     let rw     = map(nw, 0, 1, width * 0.05, width * 0.18);
     let rh     = map(nw, 0, 1, 2, 7);
-    let alpha  = map(nalpha, 0, 1, 20, 80);
+    let alpha  = map(nalpha, 0, 1, 8, 35);
     stroke(220, 235, 245, alpha);
     strokeWeight(0.9);
     ellipse(rx, ry, rw, rh);
@@ -252,7 +266,7 @@ function draw() {
       let rx     = map(nx,     0, 1, 0, width);
       let rw     = map(nw,     0, 1, width * 0.04, width * 0.12);
       let rh     = map(nw,     0, 1, 3, 10);
-      let alpha  = map(nalpha, 0, 1, 8, 40);
+      let alpha  = map(nalpha, 0, 1, 3, 18);
 
       stroke(200, 235, 245, alpha);
       strokeWeight(map(depthFactor, 0, 1, 0.3, 1.0));
@@ -264,16 +278,14 @@ function draw() {
 
   // data readout
   noStroke();
-  fill(255, 255, 255, 140);
+  fill(255, 255, 255, 50);
   textFont('Lato');
   textStyle(NORMAL);
-  textSize(18);
+  textSize(12);
   textAlign(LEFT, TOP);
-  text(dataDate, 20, 20);
-  textSize(16);
-  text('Tide (Penarth): ' + (tideHeight > 0 ? tideHeight.toFixed(2) + 'm' : 'N/A'), 20, 46);
-  text('Wind: ' + windSpeed + ' kn', 20, 68);
-  drawWindArrow(130, 61, windDirDeg, 10);
+  text('Tide (Penarth): ' + (tideHeight > 0 ? tideHeight.toFixed(2) + 'm' : 'N/A'), 20, 20);
+  text('Wind: ' + windSpeed + ' kn', 20, 44);
+  text('Last sensor reading: ' + dataDate, 20, 66);
 }
 
 function keyPressed() {
@@ -281,6 +293,41 @@ function keyPressed() {
     // records 3 seconds, then saves as lavernock.gif
     saveGif('lavernock', 3);
   }
+}
+
+function getDaylight() {
+  let now    = new Date();
+  let hour   = now.getHours() + now.getMinutes() / 60;
+
+  // approximate Penarth sunrise/sunset
+  let sunrise = 6.0;
+  let sunset  = 20.5;
+
+  let r, g, b, alpha;
+
+  if (hour < sunrise - 1.5 || hour > sunset + 1.5) {
+    // deep night — dark blue
+    r = 5; g = 10; b = 35; alpha = 160;
+  } else if (hour >= sunrise - 1.5 && hour < sunrise + 1.0) {
+    // dawn — dark to warm orange
+    let t  = map(hour, sunrise - 1.5, sunrise + 1.0, 0, 1);
+    r      = floor(lerp(5,   255, t));
+    g      = floor(lerp(10,  140, t));
+    b      = floor(lerp(35,   60, t));
+    alpha  = floor(lerp(160,   0, t));
+  } else if (hour >= sunset - 1.0 && hour <= sunset + 1.5) {
+    // dusk — warm orange fading to night
+    let t  = map(hour, sunset - 1.0, sunset + 1.5, 0, 1);
+    r      = floor(lerp(255,   5, t));
+    g      = floor(lerp(140,  10, t));
+    b      = floor(lerp(60,   35, t));
+    alpha  = floor(lerp(0,   160, t));
+  } else {
+    // daytime — no overlay
+    r = 255; g = 255; b = 255; alpha = 0;
+  }
+
+  return { r, g, b, alpha };
 }
 
 // --- fetch both tide and met data ---
