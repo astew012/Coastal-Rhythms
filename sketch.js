@@ -160,14 +160,35 @@ function draw() {
   noStroke();
   rect(0, 0, width, height);
 
-  // Moon — SunCalc gives real position, JSON gives phase/illumination for lighting
+  // Moon rendering — commented out for now, re-enable when positioning approach is decided
+  // if (todayMoonData) {
+  //   let moonPos     = SunCalc.getMoonPosition(new Date(), LAT, LON);
+  //   let moonBearing = (moonPos.azimuth * 180 / Math.PI + 180 + 360) % 360;
+  //   let moonAltDeg  = moonPos.altitude * 180 / Math.PI;
+  //   let leftEdge    = CAM_BEARING - H_FOV / 2;
+  //   let rightEdge   = CAM_BEARING + H_FOV / 2;
+  //   let phaseAngle  = map(todayMoonData.phase_fraction, 0, 1, 0, TWO_PI) + HALF_PI;
+  //   let sunStrength = map(todayMoonData.illumination_percent, 0, 100, 0, 255);
+  //   moonGfx.clear();
+  //   moonGfx.ambientLight(12, 15, 28);
+  //   moonGfx.directionalLight(sunStrength, sunStrength, sunStrength, cos(phaseAngle), 0, sin(phaseAngle));
+  //   moonGfx.noStroke();
+  //   moonGfx.texture(moonTexture);
+  //   moonGfx.sphere(70);
+  //   if (moonAltDeg > 0 && moonBearing >= leftEdge && moonBearing <= rightEdge) {
+  //     let mx = map(moonBearing, leftEdge, rightEdge, 0, width);
+  //     let my = constrain(map(moonAltDeg, 0, SKY_MAX_ALT, horizonY, 0), 15, horizonY - 15);
+  //     tint(255, 210);
+  //     image(moonGfx, mx - 60, my - 60, 120, 120);
+  //     noTint();
+  //   }
+  // }
+
+  // Moon — visible whenever above horizon, bearing mapped across full canvas width
   if (todayMoonData) {
     let moonPos     = SunCalc.getMoonPosition(new Date(), LAT, LON);
     let moonBearing = (moonPos.azimuth * 180 / Math.PI + 180 + 360) % 360;
     let moonAltDeg  = moonPos.altitude * 180 / Math.PI;
-    let leftEdge    = CAM_BEARING - H_FOV / 2;
-    let rightEdge   = CAM_BEARING + H_FOV / 2;
-
     let phaseAngle  = map(todayMoonData.phase_fraction, 0, 1, 0, TWO_PI) + HALF_PI;
     let sunStrength = map(todayMoonData.illumination_percent, 0, 100, 0, 255);
 
@@ -178,8 +199,8 @@ function draw() {
     moonGfx.texture(moonTexture);
     moonGfx.sphere(70);
 
-    if (moonAltDeg > 0 && moonBearing >= leftEdge && moonBearing <= rightEdge) {
-      let mx = map(moonBearing, leftEdge, rightEdge, 0, width);
+    if (moonAltDeg > 0) {
+      let mx = map(moonBearing, 0, 360, 0, width);
       let my = constrain(map(moonAltDeg, 0, SKY_MAX_ALT, horizonY, 0), 15, horizonY - 15);
       tint(255, 210);
       image(moonGfx, mx - 60, my - 60, 120, 120);
