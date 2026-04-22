@@ -1,4 +1,12 @@
+// Lavernock Point coords and camera orientation
+const LAT         = 51.395;
+const LON         = -3.185;
+const CAM_BEARING = 90;   // degrees compass — camera facing east
+const H_FOV       = 70;   // horizontal field of view in degrees
+const SKY_MAX_ALT = 35;   // degrees of sky visible at top of frame
+
 let img;
+let moonData, moonTexture, moonGfx, todayMoonData;
 let tideHeight = 0;
 let prevTideHeight = 0;
 let windSpeed = 0;
@@ -22,7 +30,9 @@ let pebbles = [];
 let particles = [];
 
 function preload() {
-  img = loadImage('Lavernock_Point.jpg');
+  img         = loadImage('Lavernock_Point.jpg');
+  moonTexture = loadImage('NASA_Moon_pic.jpg');
+  moonData    = loadJSON('london_moon_p5_ready.json');
 }
 
 function setup() {
@@ -89,6 +99,18 @@ function setup() {
   }
 
   fetchAll();
+
+  // Work out which day's entry to use from the JSON
+  let startDate = new Date('2026-03-05');
+  let dayIndex  = constrain(
+    Math.floor((new Date() - startDate) / 86400000),
+    0,
+    moonData.days.length - 1
+  );
+  todayMoonData = moonData.days[dayIndex];
+
+  // Offscreen WEBGL buffer — moon sphere rendered here each frame
+  moonGfx = createGraphics(200, 200, WEBGL);
 }
 
 function draw() {
@@ -137,6 +159,33 @@ function draw() {
   fill(dl.r, dl.g, dl.b, dl.alpha);
   noStroke();
   rect(0, 0, width, height);
+
+  // Moon — SunCalc gives real position, JSON gives phase/illumination for lighting
+  if (todayMoonData) {
+    let moonPos     = SunCalc.getMoonPosition(new Date(), LAT, LON);
+    let moonBearing = (moonPos.azimuth * 180 / Math.PI + 180 + 360) % 360;
+    let moonAltDeg  = moonPos.altitude * 180 / Math.PI;
+    let leftEdge    = CAM_BEARING - H_FOV / 2;
+    let rightEdge   = CAM_BEARING + H_FOV / 2;
+
+    let phaseAngle  = map(todayMoonData.phase_fraction, 0, 1, 0, TWO_PI) + HALF_PI;
+    let sunStrength = map(todayMoonData.illumination_percent, 0, 100, 0, 255);
+
+    moonGfx.clear();
+    moonGfx.ambientLight(12, 15, 28);
+    moonGfx.directionalLight(sunStrength, sunStrength, sunStrength, cos(phaseAngle), 0, sin(phaseAngle));
+    moonGfx.noStroke();
+    moonGfx.texture(moonTexture);
+    moonGfx.sphere(70);
+
+    if (moonAltDeg > 0 && moonBearing >= leftEdge && moonBearing <= rightEdge) {
+      let mx = map(moonBearing, leftEdge, rightEdge, 0, width);
+      let my = constrain(map(moonAltDeg, 0, SKY_MAX_ALT, horizonY, 0), 15, horizonY - 15);
+      tint(255, 210);
+      image(moonGfx, mx - 60, my - 60, 120, 120);
+      noTint();
+    }
+  }
 
   // pebbles sit over the photo, under the waves
   tint(255, 160);
@@ -287,6 +336,11 @@ function draw() {
   text('Tide (Penarth): ' + (tideHeight > 0 ? tideHeight.toFixed(2) + 'm' : 'N/A'), 20, 20);
   text('Wind: ' + windSpeed + ' kn', 20, 44);
   text('Last sensor reading: ' + dataDate, 20, 66);
+  if (todayMoonData) {
+    let moonLine = todayMoonData.moon_phase;
+    if (todayMoonData.moon_name) moonLine += ' · ' + todayMoonData.moon_name;
+    text(moonLine, 20, 88);
+  }
 }
 
 function keyPressed() {

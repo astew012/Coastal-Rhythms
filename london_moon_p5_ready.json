@@ -1,0 +1,1278 @@
+{
+  "meta": {
+    "location": "London, UK",
+    "start_date": "2026-03-05",
+    "end_date": "2026-08-31",
+    "lunar_cycle_days": 29.530588
+  },
+  "days": [
+    {
+      "date": "2026-03-05",
+      "location": "London, UK",
+      "phase_fraction": 0.5777,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 94.2
+    },
+    {
+      "date": "2026-03-06",
+      "location": "London, UK",
+      "phase_fraction": 0.6116,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 88.2
+    },
+    {
+      "date": "2026-03-07",
+      "location": "London, UK",
+      "phase_fraction": 0.6455,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 80.5
+    },
+    {
+      "date": "2026-03-08",
+      "location": "London, UK",
+      "phase_fraction": 0.6793,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 71.5
+    },
+    {
+      "date": "2026-03-09",
+      "location": "London, UK",
+      "phase_fraction": 0.7132,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 61.5
+    },
+    {
+      "date": "2026-03-10",
+      "location": "London, UK",
+      "phase_fraction": 0.7471,
+      "moon_phase": "Last Quarter",
+      "illumination_percent": 50.9
+    },
+    {
+      "date": "2026-03-11",
+      "location": "London, UK",
+      "phase_fraction": 0.7809,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 40.4
+    },
+    {
+      "date": "2026-03-12",
+      "location": "London, UK",
+      "phase_fraction": 0.8148,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 30.2
+    },
+    {
+      "date": "2026-03-13",
+      "location": "London, UK",
+      "phase_fraction": 0.8487,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 20.9
+    },
+    {
+      "date": "2026-03-14",
+      "location": "London, UK",
+      "phase_fraction": 0.8825,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 13
+    },
+    {
+      "date": "2026-03-15",
+      "location": "London, UK",
+      "phase_fraction": 0.9164,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 6.7
+    },
+    {
+      "date": "2026-03-16",
+      "location": "London, UK",
+      "phase_fraction": 0.9502,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 2.4
+    },
+    {
+      "date": "2026-03-17",
+      "location": "London, UK",
+      "phase_fraction": 0.9841,
+      "moon_phase": "New Moon",
+      "illumination_percent": 0.2
+    },
+    {
+      "date": "2026-03-18",
+      "location": "London, UK",
+      "phase_fraction": 0.018,
+      "moon_phase": "New Moon",
+      "illumination_percent": 0.3
+    },
+    {
+      "date": "2026-03-19",
+      "location": "London, UK",
+      "phase_fraction": 0.0518,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 2.6
+    },
+    {
+      "date": "2026-03-20",
+      "location": "London, UK",
+      "phase_fraction": 0.0857,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 7.1
+    },
+    {
+      "date": "2026-03-21",
+      "location": "London, UK",
+      "phase_fraction": 0.1196,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 13.5
+    },
+    {
+      "date": "2026-03-22",
+      "location": "London, UK",
+      "phase_fraction": 0.1534,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 21.5
+    },
+    {
+      "date": "2026-03-23",
+      "location": "London, UK",
+      "phase_fraction": 0.1873,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 30.8
+    },
+    {
+      "date": "2026-03-24",
+      "location": "London, UK",
+      "phase_fraction": 0.2211,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 41
+    },
+    {
+      "date": "2026-03-25",
+      "location": "London, UK",
+      "phase_fraction": 0.255,
+      "moon_phase": "First Quarter",
+      "illumination_percent": 51.6
+    },
+    {
+      "date": "2026-03-26",
+      "location": "London, UK",
+      "phase_fraction": 0.2889,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 62.1
+    },
+    {
+      "date": "2026-03-27",
+      "location": "London, UK",
+      "phase_fraction": 0.3227,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 72.1
+    },
+    {
+      "date": "2026-03-28",
+      "location": "London, UK",
+      "phase_fraction": 0.3566,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 81
+    },
+    {
+      "date": "2026-03-29",
+      "location": "London, UK",
+      "phase_fraction": 0.3905,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 88.6
+    },
+    {
+      "date": "2026-03-30",
+      "location": "London, UK",
+      "phase_fraction": 0.4243,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 94.5
+    },
+    {
+      "date": "2026-03-31",
+      "location": "London, UK",
+      "phase_fraction": 0.4582,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 98.3
+    },
+    {
+      "date": "2026-04-01",
+      "location": "London, UK",
+      "phase_fraction": 0.4921,
+      "moon_phase": "Full Moon",
+      "illumination_percent": 99.9,
+      "moon_name": "Pink Moon"
+    },
+    {
+      "date": "2026-04-02",
+      "location": "London, UK",
+      "phase_fraction": 0.5259,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 99.3
+    },
+    {
+      "date": "2026-04-03",
+      "location": "London, UK",
+      "phase_fraction": 0.5598,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 96.5
+    },
+    {
+      "date": "2026-04-04",
+      "location": "London, UK",
+      "phase_fraction": 0.5936,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 91.6
+    },
+    {
+      "date": "2026-04-05",
+      "location": "London, UK",
+      "phase_fraction": 0.6275,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 84.8
+    },
+    {
+      "date": "2026-04-06",
+      "location": "London, UK",
+      "phase_fraction": 0.6614,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 76.4
+    },
+    {
+      "date": "2026-04-07",
+      "location": "London, UK",
+      "phase_fraction": 0.6952,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 66.9
+    },
+    {
+      "date": "2026-04-08",
+      "location": "London, UK",
+      "phase_fraction": 0.7291,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 56.5
+    },
+    {
+      "date": "2026-04-09",
+      "location": "London, UK",
+      "phase_fraction": 0.763,
+      "moon_phase": "Last Quarter",
+      "illumination_percent": 45.9
+    },
+    {
+      "date": "2026-04-10",
+      "location": "London, UK",
+      "phase_fraction": 0.7968,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 35.5
+    },
+    {
+      "date": "2026-04-11",
+      "location": "London, UK",
+      "phase_fraction": 0.8307,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 25.7
+    },
+    {
+      "date": "2026-04-12",
+      "location": "London, UK",
+      "phase_fraction": 0.8645,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 17.1
+    },
+    {
+      "date": "2026-04-13",
+      "location": "London, UK",
+      "phase_fraction": 0.8984,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 9.8
+    },
+    {
+      "date": "2026-04-14",
+      "location": "London, UK",
+      "phase_fraction": 0.9323,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 4.5
+    },
+    {
+      "date": "2026-04-15",
+      "location": "London, UK",
+      "phase_fraction": 0.9661,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 1.1
+    },
+    {
+      "date": "2026-04-16",
+      "location": "London, UK",
+      "phase_fraction": 0,
+      "moon_phase": "New Moon",
+      "illumination_percent": 0
+    },
+    {
+      "date": "2026-04-17",
+      "location": "London, UK",
+      "phase_fraction": 0.0339,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 1.1
+    },
+    {
+      "date": "2026-04-18",
+      "location": "London, UK",
+      "phase_fraction": 0.0677,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 4.5
+    },
+    {
+      "date": "2026-04-19",
+      "location": "London, UK",
+      "phase_fraction": 0.1016,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 9.8
+    },
+    {
+      "date": "2026-04-20",
+      "location": "London, UK",
+      "phase_fraction": 0.1355,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 17.1
+    },
+    {
+      "date": "2026-04-21",
+      "location": "London, UK",
+      "phase_fraction": 0.1693,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 25.7
+    },
+    {
+      "date": "2026-04-22",
+      "location": "London, UK",
+      "phase_fraction": 0.2032,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 35.5
+    },
+    {
+      "date": "2026-04-23",
+      "location": "London, UK",
+      "phase_fraction": 0.237,
+      "moon_phase": "First Quarter",
+      "illumination_percent": 45.9
+    },
+    {
+      "date": "2026-04-24",
+      "location": "London, UK",
+      "phase_fraction": 0.2709,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 56.5
+    },
+    {
+      "date": "2026-04-25",
+      "location": "London, UK",
+      "phase_fraction": 0.3048,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 66.9
+    },
+    {
+      "date": "2026-04-26",
+      "location": "London, UK",
+      "phase_fraction": 0.3386,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 76.4
+    },
+    {
+      "date": "2026-04-27",
+      "location": "London, UK",
+      "phase_fraction": 0.3725,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 84.8
+    },
+    {
+      "date": "2026-04-28",
+      "location": "London, UK",
+      "phase_fraction": 0.4064,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 91.6
+    },
+    {
+      "date": "2026-04-29",
+      "location": "London, UK",
+      "phase_fraction": 0.4402,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 96.5
+    },
+    {
+      "date": "2026-04-30",
+      "location": "London, UK",
+      "phase_fraction": 0.4741,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 99.3
+    },
+    {
+      "date": "2026-05-01",
+      "location": "London, UK",
+      "phase_fraction": 0.5079,
+      "moon_phase": "Full Moon",
+      "illumination_percent": 99.9,
+      "moon_name": "Flower Moon"
+    },
+    {
+      "date": "2026-05-02",
+      "location": "London, UK",
+      "phase_fraction": 0.5418,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 98.3
+    },
+    {
+      "date": "2026-05-03",
+      "location": "London, UK",
+      "phase_fraction": 0.5757,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 94.5
+    },
+    {
+      "date": "2026-05-04",
+      "location": "London, UK",
+      "phase_fraction": 0.6095,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 88.6
+    },
+    {
+      "date": "2026-05-05",
+      "location": "London, UK",
+      "phase_fraction": 0.6434,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 81
+    },
+    {
+      "date": "2026-05-06",
+      "location": "London, UK",
+      "phase_fraction": 0.6773,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 72.1
+    },
+    {
+      "date": "2026-05-07",
+      "location": "London, UK",
+      "phase_fraction": 0.7111,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 62.1
+    },
+    {
+      "date": "2026-05-08",
+      "location": "London, UK",
+      "phase_fraction": 0.745,
+      "moon_phase": "Last Quarter",
+      "illumination_percent": 51.6
+    },
+    {
+      "date": "2026-05-09",
+      "location": "London, UK",
+      "phase_fraction": 0.7789,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 41
+    },
+    {
+      "date": "2026-05-10",
+      "location": "London, UK",
+      "phase_fraction": 0.8127,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 30.8
+    },
+    {
+      "date": "2026-05-11",
+      "location": "London, UK",
+      "phase_fraction": 0.8466,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 21.5
+    },
+    {
+      "date": "2026-05-12",
+      "location": "London, UK",
+      "phase_fraction": 0.8804,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 13.5
+    },
+    {
+      "date": "2026-05-13",
+      "location": "London, UK",
+      "phase_fraction": 0.9143,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 7.1
+    },
+    {
+      "date": "2026-05-14",
+      "location": "London, UK",
+      "phase_fraction": 0.9482,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 2.6
+    },
+    {
+      "date": "2026-05-15",
+      "location": "London, UK",
+      "phase_fraction": 0.982,
+      "moon_phase": "New Moon",
+      "illumination_percent": 0.3
+    },
+    {
+      "date": "2026-05-16",
+      "location": "London, UK",
+      "phase_fraction": 0.0159,
+      "moon_phase": "New Moon",
+      "illumination_percent": 0.2
+    },
+    {
+      "date": "2026-05-17",
+      "location": "London, UK",
+      "phase_fraction": 0.0498,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 2.4
+    },
+    {
+      "date": "2026-05-18",
+      "location": "London, UK",
+      "phase_fraction": 0.0836,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 6.7
+    },
+    {
+      "date": "2026-05-19",
+      "location": "London, UK",
+      "phase_fraction": 0.1175,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 13
+    },
+    {
+      "date": "2026-05-20",
+      "location": "London, UK",
+      "phase_fraction": 0.1513,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 20.9
+    },
+    {
+      "date": "2026-05-21",
+      "location": "London, UK",
+      "phase_fraction": 0.1852,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 30.2
+    },
+    {
+      "date": "2026-05-22",
+      "location": "London, UK",
+      "phase_fraction": 0.2191,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 40.4
+    },
+    {
+      "date": "2026-05-23",
+      "location": "London, UK",
+      "phase_fraction": 0.2529,
+      "moon_phase": "First Quarter",
+      "illumination_percent": 50.9
+    },
+    {
+      "date": "2026-05-24",
+      "location": "London, UK",
+      "phase_fraction": 0.2868,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 61.5
+    },
+    {
+      "date": "2026-05-25",
+      "location": "London, UK",
+      "phase_fraction": 0.3207,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 71.5
+    },
+    {
+      "date": "2026-05-26",
+      "location": "London, UK",
+      "phase_fraction": 0.3545,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 80.5
+    },
+    {
+      "date": "2026-05-27",
+      "location": "London, UK",
+      "phase_fraction": 0.3884,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 88.2
+    },
+    {
+      "date": "2026-05-28",
+      "location": "London, UK",
+      "phase_fraction": 0.4223,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 94.2
+    },
+    {
+      "date": "2026-05-29",
+      "location": "London, UK",
+      "phase_fraction": 0.4561,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 98.1
+    },
+    {
+      "date": "2026-05-30",
+      "location": "London, UK",
+      "phase_fraction": 0.49,
+      "moon_phase": "Full Moon",
+      "illumination_percent": 99.9,
+      "moon_name": "Flower Moon"
+    },
+    {
+      "date": "2026-05-31",
+      "location": "London, UK",
+      "phase_fraction": 0.5238,
+      "moon_phase": "Full Moon",
+      "illumination_percent": 99.4,
+      "moon_name": "Flower Moon"
+    },
+    {
+      "date": "2026-06-01",
+      "location": "London, UK",
+      "phase_fraction": 0.5577,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 96.7
+    },
+    {
+      "date": "2026-06-02",
+      "location": "London, UK",
+      "phase_fraction": 0.5916,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 91.9
+    },
+    {
+      "date": "2026-06-03",
+      "location": "London, UK",
+      "phase_fraction": 0.6254,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 85.3
+    },
+    {
+      "date": "2026-06-04",
+      "location": "London, UK",
+      "phase_fraction": 0.6593,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 77
+    },
+    {
+      "date": "2026-06-05",
+      "location": "London, UK",
+      "phase_fraction": 0.6932,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 67.5
+    },
+    {
+      "date": "2026-06-06",
+      "location": "London, UK",
+      "phase_fraction": 0.727,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 57.2
+    },
+    {
+      "date": "2026-06-07",
+      "location": "London, UK",
+      "phase_fraction": 0.7609,
+      "moon_phase": "Last Quarter",
+      "illumination_percent": 46.6
+    },
+    {
+      "date": "2026-06-08",
+      "location": "London, UK",
+      "phase_fraction": 0.7947,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 36.1
+    },
+    {
+      "date": "2026-06-09",
+      "location": "London, UK",
+      "phase_fraction": 0.8286,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 26.3
+    },
+    {
+      "date": "2026-06-10",
+      "location": "London, UK",
+      "phase_fraction": 0.8625,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 17.5
+    },
+    {
+      "date": "2026-06-11",
+      "location": "London, UK",
+      "phase_fraction": 0.8963,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 10.2
+    },
+    {
+      "date": "2026-06-12",
+      "location": "London, UK",
+      "phase_fraction": 0.9302,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 4.7
+    },
+    {
+      "date": "2026-06-13",
+      "location": "London, UK",
+      "phase_fraction": 0.9641,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 1.3
+    },
+    {
+      "date": "2026-06-14",
+      "location": "London, UK",
+      "phase_fraction": 0.9979,
+      "moon_phase": "New Moon",
+      "illumination_percent": 0
+    },
+    {
+      "date": "2026-06-15",
+      "location": "London, UK",
+      "phase_fraction": 0.0318,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 1
+    },
+    {
+      "date": "2026-06-16",
+      "location": "London, UK",
+      "phase_fraction": 0.0657,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 4.2
+    },
+    {
+      "date": "2026-06-17",
+      "location": "London, UK",
+      "phase_fraction": 0.0995,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 9.5
+    },
+    {
+      "date": "2026-06-18",
+      "location": "London, UK",
+      "phase_fraction": 0.1334,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 16.6
+    },
+    {
+      "date": "2026-06-19",
+      "location": "London, UK",
+      "phase_fraction": 0.1672,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 25.1
+    },
+    {
+      "date": "2026-06-20",
+      "location": "London, UK",
+      "phase_fraction": 0.2011,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 34.9
+    },
+    {
+      "date": "2026-06-21",
+      "location": "London, UK",
+      "phase_fraction": 0.235,
+      "moon_phase": "First Quarter",
+      "illumination_percent": 45.3
+    },
+    {
+      "date": "2026-06-22",
+      "location": "London, UK",
+      "phase_fraction": 0.2688,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 55.9
+    },
+    {
+      "date": "2026-06-23",
+      "location": "London, UK",
+      "phase_fraction": 0.3027,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 66.3
+    },
+    {
+      "date": "2026-06-24",
+      "location": "London, UK",
+      "phase_fraction": 0.3366,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 75.9
+    },
+    {
+      "date": "2026-06-25",
+      "location": "London, UK",
+      "phase_fraction": 0.3704,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 84.3
+    },
+    {
+      "date": "2026-06-26",
+      "location": "London, UK",
+      "phase_fraction": 0.4043,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 91.2
+    },
+    {
+      "date": "2026-06-27",
+      "location": "London, UK",
+      "phase_fraction": 0.4381,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 96.3
+    },
+    {
+      "date": "2026-06-28",
+      "location": "London, UK",
+      "phase_fraction": 0.472,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 99.2
+    },
+    {
+      "date": "2026-06-29",
+      "location": "London, UK",
+      "phase_fraction": 0.5059,
+      "moon_phase": "Full Moon",
+      "illumination_percent": 100,
+      "moon_name": "Strawberry Moon"
+    },
+    {
+      "date": "2026-06-30",
+      "location": "London, UK",
+      "phase_fraction": 0.5397,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 98.5
+    },
+    {
+      "date": "2026-07-01",
+      "location": "London, UK",
+      "phase_fraction": 0.5736,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 94.7
+    },
+    {
+      "date": "2026-07-02",
+      "location": "London, UK",
+      "phase_fraction": 0.6075,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 89
+    },
+    {
+      "date": "2026-07-03",
+      "location": "London, UK",
+      "phase_fraction": 0.6413,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 81.6
+    },
+    {
+      "date": "2026-07-04",
+      "location": "London, UK",
+      "phase_fraction": 0.6752,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 72.6
+    },
+    {
+      "date": "2026-07-05",
+      "location": "London, UK",
+      "phase_fraction": 0.7091,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 62.7
+    },
+    {
+      "date": "2026-07-06",
+      "location": "London, UK",
+      "phase_fraction": 0.7429,
+      "moon_phase": "Last Quarter",
+      "illumination_percent": 52.2
+    },
+    {
+      "date": "2026-07-07",
+      "location": "London, UK",
+      "phase_fraction": 0.7768,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 41.6
+    },
+    {
+      "date": "2026-07-08",
+      "location": "London, UK",
+      "phase_fraction": 0.8106,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 31.4
+    },
+    {
+      "date": "2026-07-09",
+      "location": "London, UK",
+      "phase_fraction": 0.8445,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 22
+    },
+    {
+      "date": "2026-07-10",
+      "location": "London, UK",
+      "phase_fraction": 0.8784,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 13.9
+    },
+    {
+      "date": "2026-07-11",
+      "location": "London, UK",
+      "phase_fraction": 0.9122,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 7.4
+    },
+    {
+      "date": "2026-07-12",
+      "location": "London, UK",
+      "phase_fraction": 0.9461,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 2.8
+    },
+    {
+      "date": "2026-07-13",
+      "location": "London, UK",
+      "phase_fraction": 0.98,
+      "moon_phase": "New Moon",
+      "illumination_percent": 0.4
+    },
+    {
+      "date": "2026-07-14",
+      "location": "London, UK",
+      "phase_fraction": 0.0138,
+      "moon_phase": "New Moon",
+      "illumination_percent": 0.2
+    },
+    {
+      "date": "2026-07-15",
+      "location": "London, UK",
+      "phase_fraction": 0.0477,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 2.2
+    },
+    {
+      "date": "2026-07-16",
+      "location": "London, UK",
+      "phase_fraction": 0.0816,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 6.4
+    },
+    {
+      "date": "2026-07-17",
+      "location": "London, UK",
+      "phase_fraction": 0.1154,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 12.6
+    },
+    {
+      "date": "2026-07-18",
+      "location": "London, UK",
+      "phase_fraction": 0.1493,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 20.4
+    },
+    {
+      "date": "2026-07-19",
+      "location": "London, UK",
+      "phase_fraction": 0.1831,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 29.6
+    },
+    {
+      "date": "2026-07-20",
+      "location": "London, UK",
+      "phase_fraction": 0.217,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 39.7
+    },
+    {
+      "date": "2026-07-21",
+      "location": "London, UK",
+      "phase_fraction": 0.2509,
+      "moon_phase": "First Quarter",
+      "illumination_percent": 50.3
+    },
+    {
+      "date": "2026-07-22",
+      "location": "London, UK",
+      "phase_fraction": 0.2847,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 60.8
+    },
+    {
+      "date": "2026-07-23",
+      "location": "London, UK",
+      "phase_fraction": 0.3186,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 70.9
+    },
+    {
+      "date": "2026-07-24",
+      "location": "London, UK",
+      "phase_fraction": 0.3525,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 80
+    },
+    {
+      "date": "2026-07-25",
+      "location": "London, UK",
+      "phase_fraction": 0.3863,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 87.8
+    },
+    {
+      "date": "2026-07-26",
+      "location": "London, UK",
+      "phase_fraction": 0.4202,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 93.8
+    },
+    {
+      "date": "2026-07-27",
+      "location": "London, UK",
+      "phase_fraction": 0.454,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 97.9
+    },
+    {
+      "date": "2026-07-28",
+      "location": "London, UK",
+      "phase_fraction": 0.4879,
+      "moon_phase": "Full Moon",
+      "illumination_percent": 99.9,
+      "moon_name": "Buck Moon"
+    },
+    {
+      "date": "2026-07-29",
+      "location": "London, UK",
+      "phase_fraction": 0.5218,
+      "moon_phase": "Full Moon",
+      "illumination_percent": 99.5,
+      "moon_name": "Buck Moon"
+    },
+    {
+      "date": "2026-07-30",
+      "location": "London, UK",
+      "phase_fraction": 0.5556,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 97
+    },
+    {
+      "date": "2026-07-31",
+      "location": "London, UK",
+      "phase_fraction": 0.5895,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 92.3
+    },
+    {
+      "date": "2026-08-01",
+      "location": "London, UK",
+      "phase_fraction": 0.6234,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 85.7
+    },
+    {
+      "date": "2026-08-02",
+      "location": "London, UK",
+      "phase_fraction": 0.6572,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 77.5
+    },
+    {
+      "date": "2026-08-03",
+      "location": "London, UK",
+      "phase_fraction": 0.6911,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 68.1
+    },
+    {
+      "date": "2026-08-04",
+      "location": "London, UK",
+      "phase_fraction": 0.725,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 57.8
+    },
+    {
+      "date": "2026-08-05",
+      "location": "London, UK",
+      "phase_fraction": 0.7588,
+      "moon_phase": "Last Quarter",
+      "illumination_percent": 47.2
+    },
+    {
+      "date": "2026-08-06",
+      "location": "London, UK",
+      "phase_fraction": 0.7927,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 36.7
+    },
+    {
+      "date": "2026-08-07",
+      "location": "London, UK",
+      "phase_fraction": 0.8265,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 26.9
+    },
+    {
+      "date": "2026-08-08",
+      "location": "London, UK",
+      "phase_fraction": 0.8604,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 18
+    },
+    {
+      "date": "2026-08-09",
+      "location": "London, UK",
+      "phase_fraction": 0.8943,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 10.6
+    },
+    {
+      "date": "2026-08-10",
+      "location": "London, UK",
+      "phase_fraction": 0.9281,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 5
+    },
+    {
+      "date": "2026-08-11",
+      "location": "London, UK",
+      "phase_fraction": 0.962,
+      "moon_phase": "Waning Crescent",
+      "illumination_percent": 1.4
+    },
+    {
+      "date": "2026-08-12",
+      "location": "London, UK",
+      "phase_fraction": 0.9959,
+      "moon_phase": "New Moon",
+      "illumination_percent": 0
+    },
+    {
+      "date": "2026-08-13",
+      "location": "London, UK",
+      "phase_fraction": 0.0297,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 0.9
+    },
+    {
+      "date": "2026-08-14",
+      "location": "London, UK",
+      "phase_fraction": 0.0636,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 3.9
+    },
+    {
+      "date": "2026-08-15",
+      "location": "London, UK",
+      "phase_fraction": 0.0974,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 9.1
+    },
+    {
+      "date": "2026-08-16",
+      "location": "London, UK",
+      "phase_fraction": 0.1313,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 16.1
+    },
+    {
+      "date": "2026-08-17",
+      "location": "London, UK",
+      "phase_fraction": 0.1652,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 24.6
+    },
+    {
+      "date": "2026-08-18",
+      "location": "London, UK",
+      "phase_fraction": 0.199,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 34.3
+    },
+    {
+      "date": "2026-08-19",
+      "location": "London, UK",
+      "phase_fraction": 0.2329,
+      "moon_phase": "Waxing Crescent",
+      "illumination_percent": 44.6
+    },
+    {
+      "date": "2026-08-20",
+      "location": "London, UK",
+      "phase_fraction": 0.2668,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 55.3
+    },
+    {
+      "date": "2026-08-21",
+      "location": "London, UK",
+      "phase_fraction": 0.3006,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 65.6
+    },
+    {
+      "date": "2026-08-22",
+      "location": "London, UK",
+      "phase_fraction": 0.3345,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 75.3
+    },
+    {
+      "date": "2026-08-23",
+      "location": "London, UK",
+      "phase_fraction": 0.3684,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 83.9
+    },
+    {
+      "date": "2026-08-24",
+      "location": "London, UK",
+      "phase_fraction": 0.4022,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 90.9
+    },
+    {
+      "date": "2026-08-25",
+      "location": "London, UK",
+      "phase_fraction": 0.4361,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 96
+    },
+    {
+      "date": "2026-08-26",
+      "location": "London, UK",
+      "phase_fraction": 0.4699,
+      "moon_phase": "Waxing Gibbous",
+      "illumination_percent": 99.1
+    },
+    {
+      "date": "2026-08-27",
+      "location": "London, UK",
+      "phase_fraction": 0.5038,
+      "moon_phase": "Full Moon",
+      "illumination_percent": 100,
+      "moon_name": "Sturgeon Moon"
+    },
+    {
+      "date": "2026-08-28",
+      "location": "London, UK",
+      "phase_fraction": 0.5377,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 98.6
+    },
+    {
+      "date": "2026-08-29",
+      "location": "London, UK",
+      "phase_fraction": 0.5715,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 95
+    },
+    {
+      "date": "2026-08-30",
+      "location": "London, UK",
+      "phase_fraction": 0.6054,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 89.4
+    },
+    {
+      "date": "2026-08-31",
+      "location": "London, UK",
+      "phase_fraction": 0.6393,
+      "moon_phase": "Waning Gibbous",
+      "illumination_percent": 82
+    }
+  ]
+}
