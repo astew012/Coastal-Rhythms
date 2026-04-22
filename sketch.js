@@ -114,9 +114,10 @@ function draw() {
 
   // waterY is fixed at the horizon — digital water always starts at the photo waterline
   let waterY = horizonY;
+  // shoreline runs diagonally: 67% down on left, 78% down on right
   // tide controls how far down the water extends over the pebbles
-  let waveBottom = map(tideHeight, 0, 11, horizonY + height * 0.02, height * 0.92);
-  let waterDepth = waveBottom - waterY;
+  let waterDepth = map(tideHeight, 0, 11, height * 0.02, height * 0.95 - waterY);
+  let waveBottom = waterY + waterDepth;
 
   // background photo
   tint(255, 150);
@@ -134,14 +135,14 @@ function draw() {
 
   // filled wave layers with vertical gradients — back to front
   const waveColours = [
-    { top: [28,  52,  68], bot: [38,  72,  90], topA: 0.18, botA: 0.32 },
-    { top: [30,  65,  82], bot: [40,  85, 105], topA: 0.16, botA: 0.28 },
-    { top: [34,  75,  92], bot: [44,  95, 115], topA: 0.15, botA: 0.26 },
-    { top: [38,  85, 102], bot: [48, 105, 122], topA: 0.13, botA: 0.22 },
-    { top: [42,  95, 110], bot: [52, 115, 130], topA: 0.11, botA: 0.18 },
-    { top: [46, 102, 115], bot: [56, 122, 135], topA: 0.10, botA: 0.14 },
-    { top: [52, 110, 122], bot: [65, 130, 140], topA: 0.08, botA: 0.10 },
-    { top: [65, 122, 132], bot: [80, 140, 150], topA: 0.05, botA: 0.04 },
+    { top: [28,  52,  68], bot: [38,  72,  90], topA: 0.12, botA: 0.24 },
+    { top: [30,  65,  82], bot: [40,  85, 105], topA: 0.11, botA: 0.20 },
+    { top: [34,  75,  92], bot: [44,  95, 115], topA: 0.10, botA: 0.18 },
+    { top: [38,  85, 102], bot: [48, 105, 122], topA: 0.09, botA: 0.15 },
+    { top: [42,  95, 110], bot: [52, 115, 130], topA: 0.08, botA: 0.12 },
+    { top: [46, 102, 115], bot: [56, 122, 135], topA: 0.07, botA: 0.10 },
+    { top: [52, 118, 128], bot: [70, 142, 148], topA: 0.08, botA: 0.12 },
+    { top: [65, 132, 138], bot: [88, 155, 160], topA: 0.06, botA: 0.08 },
   ];
 
   let ctx = drawingContext;
@@ -149,8 +150,8 @@ function draw() {
     let c = waveColours[i];
     let depthFactor = i / (waveColours.length - 1);
     let baseY   = map(depthFactor, 0, 1, waterY, waterY + waterDepth * 0.75);
-    let waveAmp = map(depthFactor, 0, 1, waterDepth * 0.08, waterDepth * 0.18);
-    let movementScale = map(depthFactor, 0, 1, 1.5, 4.0);
+    let waveAmp = map(depthFactor, 0, 1, waterDepth * 0.01, waterDepth * 0.04);
+    let movementScale = map(depthFactor, 0, 1, 1.5, 6.5);
 
     let grad = ctx.createLinearGradient(0, baseY - waveAmp, 0, waveBottom);
     grad.addColorStop(0, `rgba(${c.top[0]},${c.top[1]},${c.top[2]},${c.topA})`);
@@ -164,15 +165,16 @@ function draw() {
       let n2 = noise(x * 0.009, noiseOffset * 1.5 + i * 0.4) * 0.3;
       let sinComponent = (sin(x * 0.012 + noiseOffset * 2.5 + i * 0.7) * waveAmp * 0.45
                        + cos(x * 0.007 + noiseOffset * 1.8 + i * 1.1) * waveAmp * 0.25) * movementScale;
-      let diagonal = map(x, 0, width, 0, waterDepth * 1.5);
-      let y  = max(baseY + map((n1 + n2) / 1.3, 0, 1, -waveAmp, waveAmp) + sinComponent + diagonal, horizonY);
+      let y  = max(baseY + map((n1 + n2) / 1.3, 0, 1, -waveAmp, waveAmp) + sinComponent, horizonY);
       x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
     }
     for (let x = width; x >= 0; x -= 5) {
+      let shorelineAtX = map(x, 0, width, height * 0.67, height * 0.78);
+      let bottomAtX    = map(tideHeight, 0, 11, shorelineAtX, height * 0.95);
       let nb1 = noise(x * 0.005 + 99,  noiseOffset * 0.6  + i * 1.3);
       let nb2 = noise(x * 0.015 + 200, noiseOffset * 1.1  + i * 2.1) * 0.5;
       let nb3 = noise(x * 0.040 + 400, noiseOffset * 1.8  + i * 0.9) * 0.25;
-      let y   = waveBottom + map((nb1 + nb2 + nb3) / 1.75, 0, 1, -waveAmp * 1.8, waveAmp * 1.8);
+      let y   = bottomAtX + map((nb1 + nb2 + nb3) / 1.75, 0, 1, -waveAmp * 1.8, waveAmp * 1.8);
       ctx.lineTo(x, y);
     }
     ctx.closePath();
@@ -214,6 +216,23 @@ function draw() {
     if (p.alpha <= 0) { particles.splice(i, 1); continue; }
     fill(220, 238, 255, p.alpha);
     circle(p.x, p.y, p.size);
+  }
+
+  // ripples on the photographic sea background
+  noFill();
+  for (let s = 0; s < 35; s++) {
+    let ny     = noise(s * 2.3 + 500, layerOffsets[0] * 0.35);
+    let nx     = noise(s * 1.7 + 600, layerOffsets[1] * 0.30 + 50);
+    let nw     = noise(s * 3.1 + 700, layerOffsets[2] * 0.25 + 100);
+    let nalpha = noise(s * 4.5 + 800, layerOffsets[0] * 0.40 + 150);
+    let ry     = map(ny, 0, 1, horizonY * 1.0, horizonY * 1.28);
+    let rx     = map(nx, 0, 1, 0, width);
+    let rw     = map(nw, 0, 1, width * 0.05, width * 0.18);
+    let rh     = map(nw, 0, 1, 2, 7);
+    let alpha  = map(nalpha, 0, 1, 20, 80);
+    stroke(220, 235, 245, alpha);
+    strokeWeight(0.9);
+    ellipse(rx, ry, rw, rh);
   }
 
   // slow oval ripples on water surface
