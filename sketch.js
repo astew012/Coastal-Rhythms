@@ -198,8 +198,9 @@ function draw() {
 
   // particle clusters along wave crests
   for (let i = 0; i < waveColours.length; i++) {
-    if (random() < 0.15 && particles.length < 300) {
-      let depthFactor = i / (waveColours.length - 1);
+    let depthFactor = i / (waveColours.length - 1);
+    let spawnChance = map(depthFactor, 0, 1, 0.02, 0.10);
+    if (random() < spawnChance && particles.length < 180) {
       let baseY  = map(depthFactor, 0, 1, waterY, waterY + waterDepth * 0.7);
       let waveAmp = map(depthFactor, 0, 1, waterDepth * 0.06, waterDepth * 0.12);
       let cx = random(width);
