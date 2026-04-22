@@ -72,7 +72,7 @@ function setup() {
     pebbles.push({
       x:       px,
       y:       random(minY, height * 0.98),
-      r:       random(2, 5),
+      r:       random(4, 9),
       col,
       scaleX:  oblong ? random(1.3, 1.9) : random(1.0, 1.2),
       scaleY:  oblong ? random(0.55, 0.8) : random(0.85, 1.0),
@@ -134,14 +134,14 @@ function draw() {
 
   // filled wave layers with vertical gradients — back to front
   const waveColours = [
-    { top: [30,  45,  55], bot: [40,  65,  75], topA: 0.10, botA: 0.22 },
-    { top: [35,  58,  65], bot: [45,  78,  85], topA: 0.11, botA: 0.24 },
-    { top: [40,  70,  75], bot: [50,  90,  95], topA: 0.12, botA: 0.26 },
-    { top: [45,  80,  85], bot: [55, 100, 105], topA: 0.13, botA: 0.25 },
-    { top: [50,  90,  92], bot: [60, 110, 112], topA: 0.14, botA: 0.24 },
-    { top: [55,  98,  98], bot: [65, 118, 115], topA: 0.15, botA: 0.22 },
-    { top: [62, 108, 105], bot: [75, 128, 122], topA: 0.12, botA: 0.16 },
-    { top: [80, 125, 120], bot: [100, 145, 138], topA: 0.08, botA: 0.06 },
+    { top: [28,  52,  68], bot: [38,  72,  90], topA: 0.18, botA: 0.32 },
+    { top: [30,  65,  82], bot: [40,  85, 105], topA: 0.16, botA: 0.28 },
+    { top: [34,  75,  92], bot: [44,  95, 115], topA: 0.15, botA: 0.26 },
+    { top: [38,  85, 102], bot: [48, 105, 122], topA: 0.13, botA: 0.22 },
+    { top: [42,  95, 110], bot: [52, 115, 130], topA: 0.11, botA: 0.18 },
+    { top: [46, 102, 115], bot: [56, 122, 135], topA: 0.10, botA: 0.14 },
+    { top: [52, 110, 122], bot: [65, 130, 140], topA: 0.08, botA: 0.10 },
+    { top: [65, 122, 132], bot: [80, 140, 150], topA: 0.05, botA: 0.04 },
   ];
 
   let ctx = drawingContext;
@@ -149,8 +149,8 @@ function draw() {
     let c = waveColours[i];
     let depthFactor = i / (waveColours.length - 1);
     let baseY   = map(depthFactor, 0, 1, waterY, waterY + waterDepth * 0.75);
-    let waveAmp = map(depthFactor, 0, 1, waterDepth * 0.05, waterDepth * 0.38);
-    let movementScale = map(depthFactor, 0, 1, 0.5, 4.0);
+    let waveAmp = map(depthFactor, 0, 1, waterDepth * 0.08, waterDepth * 0.18);
+    let movementScale = map(depthFactor, 0, 1, 1.5, 4.0);
 
     let grad = ctx.createLinearGradient(0, baseY - waveAmp, 0, waveBottom);
     grad.addColorStop(0, `rgba(${c.top[0]},${c.top[1]},${c.top[2]},${c.topA})`);
@@ -180,7 +180,7 @@ function draw() {
     ctx.restore();
   }
 
-  // spawn foam particle clusters along wave crests
+  // particle clusters along wave crests
   for (let i = 0; i < waveColours.length; i++) {
     if (random() < 0.15 && particles.length < 300) {
       let depthFactor = i / (waveColours.length - 1);
@@ -243,14 +243,18 @@ function draw() {
 
   noStroke();
 
-  // data readout — so you can see it's working
-  fill(255);
-  textSize(16);
+  // data readout
+  noStroke();
+  fill(255, 255, 255, 140);
+  textFont('Lato');
+  textStyle(NORMAL);
+  textSize(18);
   textAlign(LEFT, TOP);
   text(dataDate, 20, 20);
-  text('Tide (Penarth): ' + (tideHeight > 0 ? tideHeight.toFixed(2) + 'm' : 'N/A'), 20, 45);
-  text('Wind: ' + windSpeed + ' kn', 20, 70);
-  drawWindArrow(130, 63, windDirDeg, 10);
+  textSize(16);
+  text('Tide (Penarth): ' + (tideHeight > 0 ? tideHeight.toFixed(2) + 'm' : 'N/A'), 20, 46);
+  text('Wind: ' + windSpeed + ' kn', 20, 68);
+  drawWindArrow(130, 61, windDirDeg, 10);
 }
 
 function keyPressed() {
@@ -314,9 +318,9 @@ function drawPebble(pg, x, y, r, col, scaleX, scaleY, noiseID, tilt) {
   let rx = r * scaleX, ry = r * scaleY;
   let shadowGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, max(rx, ry));
   shadowGrad.addColorStop(0,    'rgba(0,0,0,0.00)');
-  shadowGrad.addColorStop(0.55, 'rgba(0,0,0,0.10)');
-  shadowGrad.addColorStop(0.82, 'rgba(0,0,0,0.40)');
-  shadowGrad.addColorStop(1,    'rgba(0,0,0,0.75)');
+  shadowGrad.addColorStop(0.55, 'rgba(0,0,0,0.05)');
+  shadowGrad.addColorStop(0.82, 'rgba(0,0,0,0.18)');
+  shadowGrad.addColorStop(1,    'rgba(0,0,0,0.32)');
   ctx.fillStyle = shadowGrad;
   ctx.beginPath();
   ctx.ellipse(0, 0, rx * 1.05, ry * 1.05, 0, 0, Math.PI * 2);
