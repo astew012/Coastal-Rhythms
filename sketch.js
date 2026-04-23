@@ -202,10 +202,14 @@ function draw() {
   image(pebbleLayer, 0, 0);
   noTint();
 
-  // noiseOffset increments each frame — this is the main clock driving wave movement.
-  // Increase 0.006 to speed up all wave motion, decrease to slow it down.
-  noiseOffset += 0.011;
-  for (let i = 0; i < waveLayers.length; i++) layerOffsets[i] += waveLayers[i].speed;
+  // windFactor scales wave movement based on live wind speed.
+  // Clamped to a relaxed range — even strong winds only push movement to 1.3×.
+  // 0 kn = calm (0.7×), 20 kn = gentle (1.0×), 40 kn+ = max (1.3×).
+  let windFactor = map(constrain(windSpeed, 0, 40), 0, 40, 0.7, 1.3);
+
+  // noiseOffset increments each frame — multiplied by windFactor so stronger wind = faster movement.
+  noiseOffset += 0.011 * windFactor;
+  for (let i = 0; i < waveLayers.length; i++) layerOffsets[i] += waveLayers[i].speed * windFactor;
 
   // 8 wave layers drawn back to front (index 0 = furthest back, index 7 = closest to viewer).
   // Each entry: top/bot = RGB colour at top and bottom edge of that layer.
@@ -230,9 +234,8 @@ function draw() {
     let baseY   = map(depthFactor, 0, 1, waterY, waterY + waterDepth * 0.75);
     // waveAmp — how tall each wave crest is. Front waves are taller than back waves.
     let waveAmp = map(depthFactor, 0, 1, waterDepth * 0.01, waterDepth * 0.04);
-    // movementScale — front waves move more than back waves.
-    // Increase the second value (6.5) for more dramatic front wave movement.
-    let movementScale = map(depthFactor, 0, 1, 1.5, 9.0);
+    // movementScale — front waves move more than back waves, further scaled by live wind speed.
+    let movementScale = map(depthFactor, 0, 1, 1.5, 9.0) * windFactor;
 
     let grad = ctx.createLinearGradient(0, baseY - waveAmp, 0, waveBottom);
     grad.addColorStop(0, `rgba(${c.top[0]},${c.top[1]},${c.top[2]},${c.topA})`);
