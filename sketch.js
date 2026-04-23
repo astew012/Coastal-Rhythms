@@ -10,7 +10,6 @@ let moonData, moonTexture, moonGfx, todayMoonData;
 let tideHeight = 0;
 let prevTideHeight = 0;
 let windSpeed = 0;
-let windDirDeg = 0;
 let dataDate  = '';
 let lastFetch = 0;
 let dataLoaded = false;
@@ -118,10 +117,9 @@ function setup() {
 function draw() {
   background(20, 60, 100);
 
-  // refetch every 60 seconds
+  // refetch every 30 minutes
   if (millis() - lastFetch > 1800000) {
     fetchAll();
-    lastFetch = millis();
   }
 
   if (!dataLoaded) {
@@ -364,8 +362,6 @@ function draw() {
     }
   }
 
-  noStroke();
-
   // data readout
   noStroke();
   fill(255, 255, 255, 50);
@@ -534,9 +530,8 @@ function fetchMet() {
       let feature = data.features.find(f => f.properties.speed !== null);
       if (feature) {
         let p = feature.properties;
-        windSpeed  = parseFloat(p.speed);
-        windDirDeg = parseFloat(p.dir);
-        dataDate   = parseDataDate(p.date);
+        windSpeed = parseFloat(p.speed);
+        dataDate  = parseDataDate(p.date);
         console.log('Wind:', windSpeed, 'kn', windDirDeg + '°');
       }
     })
