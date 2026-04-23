@@ -380,9 +380,9 @@ function draw() {
 }
 
 function keyPressed() {
-  if (key === 'g' || key === 'G') {
+  if (key === 's') {
     // records 3 seconds, then saves as lavernock.gif
-    saveGif('lavernock', 3);
+    saveCanvas('lavernock', 'png');
   }
 }
 

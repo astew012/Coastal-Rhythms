@@ -99,3 +99,8 @@ The Bristol Channel has one of the largest tidal ranges in the world — up to 1
 ## Keyboard shortcut
 
 Press **G** to record a 3-second GIF of the sketch (`lavernock.gif`).
+
+## Attribution
+Real time data (tidal and met) displayed on this page are from the Regional Coastal Monitoring Programme, made freely available under the terms of the Open Government Licence. Please note that these are real-time data and are not quality-controlled.
+
+Moon surface texture courtesy of NASA's Lunar Reconnaissance Orbiter Camera (LROC), Arizona State University. The image is in the public domain, so it can be freely used for projects Source: svs.gsfc.nasa.gov

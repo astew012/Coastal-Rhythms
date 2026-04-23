@@ -13,5 +13,8 @@
   "dependencies": {
     "dotenv": "^17.4.2",
     "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/p5": "^1.7.7"
   }
 }
