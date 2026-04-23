@@ -17,12 +17,14 @@ let dataLoaded = false;
 let noiseOffset = 0;
 
 // each wave layer has its own speed, amplitude, and spatial frequency
+// waveLayers drives animation timing for layerOffsets and the ripple systems.
+// speed — how fast each layer's offset advances each frame.
 const waveLayers = [
-  { speed: 0.0008, freqX: 0.0015, amp: 0.08, color: [100, 140, 160], alpha: 80  },
-  { speed: 0.0014, freqX: 0.0025, amp: 0.06, color: [60,  110, 150], alpha: 110 },
-  { speed: 0.0020, freqX: 0.0040, amp: 0.05, color: [40,  90,  140], alpha: 140 },
-  { speed: 0.0030, freqX: 0.0060, amp: 0.04, color: [25,  75,  130], alpha: 160 },
-  { speed: 0.0045, freqX: 0.0090, amp: 0.03, color: [15,  60,  120], alpha: 200 },
+  { speed: 0.0008 },
+  { speed: 0.0014 },
+  { speed: 0.0020 },
+  { speed: 0.0030 },
+  { speed: 0.0050 },
 ];
 let layerOffsets;
 let pebbleLayer;
@@ -131,14 +133,20 @@ function draw() {
     return; // skip the rest of draw until data arrives
   }
 
-  // horizonY = where the sea meets the sky in the photo — adjust this to match the image
+  // horizonY — where the sea meets the sky in the photo. Adjust to reposition the waterline.
   let horizonY = height * 0.56;
 
-  // waterY is fixed at the horizon — digital water always starts at the photo waterline
+  // waterY is always fixed at the horizon — the digital water always starts at the photo waterline.
+  // The tide does NOT move this top edge up or down.
   let waterY = horizonY;
-  // shoreline runs diagonally: 67% down on left, 78% down on right
-  // tide controls how far down the water extends over the pebbles
+
+  // waterDepth — how far the water extends DOWN from the horizon, driven by the live tide reading.
+  // tideHeight range: 0m (low tide, Bristol Channel) to 11m (high tide — one of the largest ranges in the world).
+  // Low tide (0m)  → waterDepth = 2% of canvas  → only a thin sliver of digital water visible.
+  // High tide (11m) → waterDepth = nearly full canvas below horizon → pebbles mostly covered.
   let waterDepth = map(tideHeight, 0, 11, height * 0.02, height * 0.95 - waterY);
+
+  // waveBottom — the maximum Y extent of the water (top of water + depth).
   let waveBottom = waterY + waterDepth;
 
   // background photo
@@ -146,49 +154,30 @@ function draw() {
   image(img, 0, 0, width, height);
   noTint();
 
-  // sky gradient — darkens clouds at top, fades to transparent at horizon
+  // day/night overlay — calculated first so it can also drive the sky gradient
+  let dl = getDaylight();
+
+  // sky gradient — only visible at night/dawn/dusk, fades out completely during daytime.
+  // nightFactor: 0 = full daytime (no gradient), 1 = full night (max gradient).
+  let nightFactor = dl.alpha / 160;
   let skyGrad = drawingContext.createLinearGradient(0, 0, 0, horizonY);
-  skyGrad.addColorStop(0,   'rgba(10, 15, 25, 0.72)');
-  skyGrad.addColorStop(0.6, 'rgba(10, 15, 25, 0.35)');
+  skyGrad.addColorStop(0,   `rgba(10, 15, 25, ${(0.72 * nightFactor).toFixed(3)})`);
+  skyGrad.addColorStop(0.6, `rgba(10, 15, 25, ${(0.35 * nightFactor).toFixed(3)})`);
   skyGrad.addColorStop(1,   'rgba(10, 15, 25, 0.0)');
   drawingContext.fillStyle = skyGrad;
   drawingContext.fillRect(0, 0, width, horizonY);
 
-  // day/night overlay
-  let dl = getDaylight();
   fill(dl.r, dl.g, dl.b, dl.alpha);
   noStroke();
   rect(0, 0, width, height);
 
-  // Moon rendering — commented out for now, re-enable when positioning approach is decided
-  // if (todayMoonData) {
-  //   let moonPos     = SunCalc.getMoonPosition(new Date(), LAT, LON);
-  //   let moonBearing = (moonPos.azimuth * 180 / Math.PI + 180 + 360) % 360;
-  //   let moonAltDeg  = moonPos.altitude * 180 / Math.PI;
-  //   let leftEdge    = CAM_BEARING - H_FOV / 2;
-  //   let rightEdge   = CAM_BEARING + H_FOV / 2;
-  //   let phaseAngle  = map(todayMoonData.phase_fraction, 0, 1, 0, TWO_PI) + HALF_PI;
-  //   let sunStrength = map(todayMoonData.illumination_percent, 0, 100, 0, 255);
-  //   moonGfx.clear();
-  //   moonGfx.ambientLight(12, 15, 28);
-  //   moonGfx.directionalLight(sunStrength, sunStrength, sunStrength, cos(phaseAngle), 0, sin(phaseAngle));
-  //   moonGfx.noStroke();
-  //   moonGfx.texture(moonTexture);
-  //   moonGfx.sphere(70);
-  //   if (moonAltDeg > 0 && moonBearing >= leftEdge && moonBearing <= rightEdge) {
-  //     let mx = map(moonBearing, leftEdge, rightEdge, 0, width);
-  //     let my = constrain(map(moonAltDeg, 0, SKY_MAX_ALT, horizonY, 0), 15, horizonY - 15);
-  //     tint(255, 210);
-  //     image(moonGfx, mx - 60, my - 60, 120, 120);
-  //     noTint();
-  //   }
-  // }
-
-  // Moon — visible whenever above horizon, bearing mapped across full canvas width
+  // Moon — only appears when genuinely above horizon, within the east-facing camera frame, and at night
   if (todayMoonData) {
     let moonPos     = SunCalc.getMoonPosition(new Date(), LAT, LON);
     let moonBearing = (moonPos.azimuth * 180 / Math.PI + 180 + 360) % 360;
     let moonAltDeg  = moonPos.altitude * 180 / Math.PI;
+    let leftEdge    = CAM_BEARING - H_FOV / 2;
+    let rightEdge   = CAM_BEARING + H_FOV / 2;
     let phaseAngle  = map(todayMoonData.phase_fraction, 0, 1, 0, TWO_PI) + HALF_PI;
     let sunStrength = map(todayMoonData.illumination_percent, 0, 100, 0, 255);
 
@@ -199,10 +188,10 @@ function draw() {
     moonGfx.texture(moonTexture);
     moonGfx.sphere(70);
 
-    if (moonAltDeg > 0) {
-      let mx = map(moonBearing, 0, 360, 0, width);
+    if (moonAltDeg > 0 && moonBearing >= leftEdge && moonBearing <= rightEdge && nightFactor > 0) {
+      let mx = map(moonBearing, leftEdge, rightEdge, 0, width);
       let my = constrain(map(moonAltDeg, 0, SKY_MAX_ALT, horizonY, 0), 15, horizonY - 15);
-      tint(255, 210);
+      tint(255, 210 * nightFactor);
       image(moonGfx, mx - 60, my - 60, 120, 120);
       noTint();
     }
@@ -213,29 +202,37 @@ function draw() {
   image(pebbleLayer, 0, 0);
   noTint();
 
-  // advance layer offsets — slow ebb and flow
-  noiseOffset += 0.006;
+  // noiseOffset increments each frame — this is the main clock driving wave movement.
+  // Increase 0.006 to speed up all wave motion, decrease to slow it down.
+  noiseOffset += 0.011;
   for (let i = 0; i < waveLayers.length; i++) layerOffsets[i] += waveLayers[i].speed;
 
-  // filled wave layers with vertical gradients — back to front
+  // 8 wave layers drawn back to front (index 0 = furthest back, index 7 = closest to viewer).
+  // Each entry: top/bot = RGB colour at top and bottom edge of that layer.
+  //             topA/botA = opacity at top and bottom (0.0 = transparent, 1.0 = solid).
   const waveColours = [
-    { top: [28,  52,  68], bot: [38,  72,  90], topA: 0.12, botA: 0.24 },
-    { top: [30,  65,  82], bot: [40,  85, 105], topA: 0.11, botA: 0.20 },
-    { top: [34,  75,  92], bot: [44,  95, 115], topA: 0.10, botA: 0.18 },
-    { top: [38,  85, 102], bot: [48, 105, 122], topA: 0.09, botA: 0.15 },
-    { top: [42,  95, 110], bot: [52, 115, 130], topA: 0.08, botA: 0.12 },
-    { top: [46, 102, 115], bot: [56, 122, 135], topA: 0.07, botA: 0.10 },
-    { top: [52, 118, 128], bot: [70, 142, 148], topA: 0.08, botA: 0.12 },
-    { top: [65, 132, 138], bot: [88, 155, 160], topA: 0.06, botA: 0.08 },
+    { top: [28,  52,  68], bot: [38,  72,  90], topA: 0.10, botA: 0.24 }, // layer 0 — back
+    { top: [30,  65,  82], bot: [40,  85, 105], topA: 0.40, botA: 0.20 }, // layer 1
+    { top: [34,  75,  92], bot: [44,  95, 115], topA: 0.30, botA: 0.18 }, // layer 2
+    { top: [38,  85, 102], bot: [48, 105, 122], topA: 0.20, botA: 0.15 }, // layer 3
+    { top: [42,  95, 110], bot: [52, 115, 130], topA: 0.18, botA: 0.12 }, // layer 4
+    { top: [46, 102, 115], bot: [56, 122, 135], topA: 0.27, botA: 0.10 }, // layer 5
+    { top: [22,  48,  62], bot: [32,  68,  85], topA: 0.06, botA: 0.28 }, // layer 6 — darker band
+    { top: [65, 132, 138], bot: [88, 155, 160], topA: 0.06, botA: 0.08 }, // layer 7 — front
   ];
 
   let ctx = drawingContext;
   for (let i = 0; i < waveColours.length; i++) {
     let c = waveColours[i];
+    // depthFactor: 0 = back wave, 1 = front wave — used to scale amplitude and movement
     let depthFactor = i / (waveColours.length - 1);
+    // baseY — vertical start position of this layer, spread across the water depth
     let baseY   = map(depthFactor, 0, 1, waterY, waterY + waterDepth * 0.75);
+    // waveAmp — how tall each wave crest is. Front waves are taller than back waves.
     let waveAmp = map(depthFactor, 0, 1, waterDepth * 0.01, waterDepth * 0.04);
-    let movementScale = map(depthFactor, 0, 1, 1.5, 6.5);
+    // movementScale — front waves move more than back waves.
+    // Increase the second value (6.5) for more dramatic front wave movement.
+    let movementScale = map(depthFactor, 0, 1, 1.5, 9.0);
 
     let grad = ctx.createLinearGradient(0, baseY - waveAmp, 0, waveBottom);
     grad.addColorStop(0, `rgba(${c.top[0]},${c.top[1]},${c.top[2]},${c.topA})`);
@@ -244,14 +241,23 @@ function draw() {
     ctx.save();
     ctx.fillStyle = grad;
     ctx.beginPath();
+    // TOP EDGE — drawn left to right using Perlin noise + sin/cos for organic wave shape.
     for (let x = 0; x <= width; x += 5) {
+      // n1/n2: Perlin noise gives slow organic undulation across the wave
       let n1 = noise(x * 0.003, noiseOffset + i * 0.8);
       let n2 = noise(x * 0.009, noiseOffset * 1.5 + i * 0.4) * 0.3;
+      // sinComponent: rolling wave motion layered on top of the noise.
+      // The x * 0.012 / x * 0.007 values control wave frequency (higher = more waves).
+      // The noiseOffset * 2.5 / * 1.8 values control how fast the waves roll.
       let sinComponent = (sin(x * 0.012 + noiseOffset * 2.5 + i * 0.7) * waveAmp * 0.45
                        + cos(x * 0.007 + noiseOffset * 1.8 + i * 1.1) * waveAmp * 0.25) * movementScale;
+      // Clamp top edge to never go above the horizon line
       let y  = max(baseY + map((n1 + n2) / 1.3, 0, 1, -waveAmp, waveAmp) + sinComponent, horizonY);
       x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
     }
+    // BOTTOM EDGE — drawn right to left, follows the diagonal shoreline driven by tide height.
+    // shorelineAtX matches the actual beach geometry in the photo (67% down on left, 78% on right).
+    // bottomAtX rises with the tide: low tide exposes pebbles, high tide covers them.
     for (let x = width; x >= 0; x -= 5) {
       let shorelineAtX = map(x, 0, width, height * 0.67, height * 0.78);
       let bottomAtX    = map(tideHeight, 0, 11, shorelineAtX, height * 0.95);
@@ -329,18 +335,28 @@ function draw() {
     let rippleCount = floor(map(i, 0, waveLayers.length - 1, 5, 18));
 
     for (let s = 0; s < rippleCount; s++) {
+      // unique noise value for this ripple's Y position — drifts slowly over time
       let ny     = noise(s * 3.7 + i * 10, layerOffsets[i] * 0.15);
+      // unique noise value for this ripple's X position — drifts at a different rate
       let nx     = noise(s * 1.3 + i * 5,  layerOffsets[i] * 0.35 + 100);
+      // unique noise value for this ripple's size — +200 seeds a different noise region so size doesn't track position
       let nw     = noise(s * 2.1 + i * 7,  layerOffsets[i] * 0.25 + 200);
+      // unique noise value for this ripple's opacity — +300 keeps it independent of size and position
       let nalpha = noise(s * 4.2 + i * 3,  layerOffsets[i] * 0.45 + 300);
+      // map Y noise (0–1) to a vertical band within this wave layer's zone
       let ry     = map(ny,     0, 1, zoneTop, zoneBottom);
+      // map X noise (0–1) to anywhere across the full canvas width
       let rx     = map(nx,     0, 1, 0, width);
+      // map size noise to ripple width — 4% to 12% of canvas width
       let rw     = map(nw,     0, 1, width * 0.04, width * 0.12);
+      // same size noise drives height — keeps width and height proportional
       let rh     = map(nw,     0, 1, 3, 10);
-      let alpha  = map(nalpha, 0, 1, 3, 18);
+      // map opacity noise to alpha range — 8 (faint) to 45 (visible)
+      let alpha  = map(nalpha, 0, 1, 8, 45);
 
       stroke(200, 235, 245, alpha);
-      strokeWeight(map(depthFactor, 0, 1, 0.3, 1.0));
+      // back ripples are thinner (0.5), front ripples are thicker (1.8) — gives sense of depth
+      strokeWeight(map(depthFactor, 0, 1, 0.5, 1.0));
       ellipse(rx, ry, rw, rh);
     }
   }
@@ -506,19 +522,6 @@ function parseDataDate(raw) {
   return day + ' ' + months[month] + ' ' + year + '  ' + hour + ':' + min;
 }
 
-function drawWindArrow(x, y, deg, size) {
-  push();
-  translate(x, y);
-  rotate(radians(deg));
-  stroke(255);
-  strokeWeight(1.5);
-  fill(255);
-  // shaft
-  line(0, size, 0, -size);
-  // arrowhead pointing in wind direction
-  triangle(0, -size, -size * 0.45, -size * 0.3, size * 0.45, -size * 0.3);
-  pop();
-}
 
 function fetchMet() {
   fetch('http://localhost:3000/wind')
