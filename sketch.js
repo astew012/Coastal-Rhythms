@@ -394,9 +394,10 @@ function getDaylight() {
   let now    = new Date();
   let hour   = now.getHours() + now.getMinutes() / 60;
 
-  // approximate Penarth sunrise/sunset
-  let sunrise = 6.0;
-  let sunset  = 20.5;
+  // precise sunrise/sunset for Penarth on today's date, calculated by SunCalc
+  let times   = SunCalc.getTimes(now, LAT, LON);
+  let sunrise = times.sunrise.getHours() + times.sunrise.getMinutes() / 60;
+  let sunset  = times.sunset.getHours()  + times.sunset.getMinutes()  / 60;
 
   let r, g, b, alpha;
 
