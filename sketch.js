@@ -370,7 +370,7 @@ function draw() {
   textSize(12);
   textAlign(LEFT, TOP);
   text('Tide (Penarth): ' + (tideHeight > 0 ? tideHeight.toFixed(2) + 'm' : 'N/A'), 20, 20);
-  text('Wind: ' + windSpeed + ' kn', 20, 44);
+  text('Wind: ' + round(windSpeed * 1.151) + ' mph', 20, 44);
   text('Last sensor reading: ' + dataDate, 20, 66);
   if (todayMoonData) {
     let moonLine = todayMoonData.moon_phase;
