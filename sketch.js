@@ -14,6 +14,7 @@ let dataDate  = '';
 let lastFetch = 0;
 let dataLoaded = false;
 let noiseOffset = 0;
+let moonPreview = false;
 
 // each wave layer has its own speed, amplitude, and spatial frequency
 // waveLayers drives animation timing for layerOffsets and the ripple systems.
@@ -157,7 +158,7 @@ function draw() {
 
   // sky gradient — only visible at night/dawn/dusk, fades out completely during daytime.
   // nightFactor: 0 = full daytime (no gradient), 1 = full night (max gradient).
-  let nightFactor = dl.alpha / 160;
+  let nightFactor = moonPreview ? 1 : dl.alpha / 160;
   let skyGrad = drawingContext.createLinearGradient(0, 0, 0, horizonY);
   skyGrad.addColorStop(0,   `rgba(10, 15, 25, ${(0.72 * nightFactor).toFixed(3)})`);
   skyGrad.addColorStop(0.6, `rgba(10, 15, 25, ${(0.35 * nightFactor).toFixed(3)})`);
@@ -172,8 +173,11 @@ function draw() {
   // Moon — only appears when genuinely above horizon, within the east-facing camera frame, and at night
   if (todayMoonData) {
     let moonPos     = SunCalc.getMoonPosition(new Date(), LAT, LON);
-    let moonBearing = (moonPos.azimuth * 180 / Math.PI + 180 + 360) % 360;
-    let moonAltDeg  = moonPos.altitude * 180 / Math.PI;
+    let moonTimes   = SunCalc.getMoonTimes(new Date(), LAT, LON);
+    let risePos     = moonTimes.rise ? SunCalc.getMoonPosition(moonTimes.rise, LAT, LON) : null;
+    let riseBearing = risePos ? (risePos.azimuth * 180 / Math.PI + 180 + 360) % 360 : CAM_BEARING;
+    let moonBearing = moonPreview ? riseBearing : (moonPos.azimuth * 180 / Math.PI + 180 + 360) % 360;
+    let moonAltDeg  = moonPreview ? 2 : moonPos.altitude * 180 / Math.PI;
     let leftEdge    = CAM_BEARING - H_FOV / 2;
     let rightEdge   = CAM_BEARING + H_FOV / 2;
     let phaseAngle  = map(todayMoonData.phase_fraction, 0, 1, 0, TWO_PI) + HALF_PI;
@@ -201,26 +205,25 @@ function draw() {
   noTint();
 
   // windFactor scales wave movement based on live wind speed.
-  // Clamped to a relaxed range — even strong winds only push movement to 1.3×.
-  // 0 kn = calm (0.7×), 20 kn = gentle (1.0×), 40 kn+ = max (1.3×).
-  let windFactor = map(constrain(windSpeed, 0, 40), 0, 40, 0.7, 1.3);
+  // Clamped to a relaxed range — even strong winds only push movement to 1.5×.
+  // 0 kn = calm (0.7×), 20 kn = gentle (1.0×), 40 kn+ = max (1.5×).
+  let windFactor = map(constrain(windSpeed, 0, 40), 0, 40, 0.7, 1.5);
 
-  // noiseOffset increments each frame — multiplied by windFactor so stronger wind = faster movement.
-  noiseOffset += 0.011 * windFactor;
+  noiseOffset += 0.020 * windFactor;
   for (let i = 0; i < waveLayers.length; i++) layerOffsets[i] += waveLayers[i].speed * windFactor;
 
   // 8 wave layers drawn back to front (index 0 = furthest back, index 7 = closest to viewer).
   // Each entry: top/bot = RGB colour at top and bottom edge of that layer.
   //             topA/botA = opacity at top and bottom (0.0 = transparent, 1.0 = solid).
   const waveColours = [
-    { top: [28,  52,  68], bot: [38,  72,  90], topA: 0.10, botA: 0.24 }, // layer 0 — back
-    { top: [30,  65,  82], bot: [40,  85, 105], topA: 0.40, botA: 0.20 }, // layer 1
-    { top: [34,  75,  92], bot: [44,  95, 115], topA: 0.30, botA: 0.18 }, // layer 2
-    { top: [38,  85, 102], bot: [48, 105, 122], topA: 0.20, botA: 0.15 }, // layer 3
-    { top: [42,  95, 110], bot: [52, 115, 130], topA: 0.18, botA: 0.12 }, // layer 4
-    { top: [46, 102, 115], bot: [56, 122, 135], topA: 0.27, botA: 0.10 }, // layer 5
-    { top: [22,  48,  62], bot: [32,  68,  85], topA: 0.06, botA: 0.28 }, // layer 6 — darker band
-    { top: [65, 132, 138], bot: [88, 155, 160], topA: 0.06, botA: 0.08 }, // layer 7 — front
+    { top: [28,  52,  68], bot: [38,  72,  90], topA: 0.42, botA: 0.63 }, // layer 0 — back
+    { top: [30,  65,  82], bot: [40,  85, 105], topA: 0.26, botA: 0.11 }, // layer 1
+    { top: [34,  75,  92], bot: [44,  95, 115], topA: 0.20, botA: 0.10 }, // layer 2
+    { top: [38,  85, 102], bot: [48, 105, 122], topA: 0.15, botA: 0.08 }, // layer 3
+    { top: [42,  95, 110], bot: [52, 115, 130], topA: 0.11, botA: 0.07 }, // layer 4
+    { top: [46, 102, 115], bot: [56, 122, 135], topA: 0.06, botA: 0.06 }, // layer 5
+    { top: [22,  48,  62], bot: [32,  68,  85], topA: 0.04, botA: 0.15 }, // layer 6 — darker band
+    { top: [65, 132, 138], bot: [88, 155, 160], topA: 0.04, botA: 0.05 }, // layer 7 — front
   ];
 
   let ctx = drawingContext;
@@ -230,42 +233,30 @@ function draw() {
     let depthFactor = i / (waveColours.length - 1);
     // baseY — vertical start position of this layer, spread across the water depth
     let baseY   = map(depthFactor, 0, 1, waterY, waterY + waterDepth * 0.75);
-    // waveAmp — how tall each wave crest is. Front waves are taller than back waves.
     let waveAmp = map(depthFactor, 0, 1, waterDepth * 0.01, waterDepth * 0.04);
-    // movementScale — front waves move more than back waves, further scaled by live wind speed.
-    let movementScale = map(depthFactor, 0, 1, 1.5, 9.0) * windFactor;
+    let movementScale = map(depthFactor, 0, 1, 1.5, 5.0) * windFactor;
 
     let grad = ctx.createLinearGradient(0, baseY - waveAmp, 0, waveBottom);
-    grad.addColorStop(0, `rgba(${c.top[0]},${c.top[1]},${c.top[2]},${c.topA})`);
-    grad.addColorStop(1, `rgba(${c.bot[0]},${c.bot[1]},${c.bot[2]},${c.botA})`);
+    grad.addColorStop(0,    `rgba(${c.top[0]},${c.top[1]},${c.top[2]},0)`);
+    grad.addColorStop(0.18, `rgba(${c.top[0]},${c.top[1]},${c.top[2]},${c.topA})`);
+    grad.addColorStop(1,    `rgba(${c.bot[0]},${c.bot[1]},${c.bot[2]},${c.botA})`);
 
     ctx.save();
     ctx.fillStyle = grad;
     ctx.beginPath();
-    // TOP EDGE — drawn left to right using Perlin noise + sin/cos for organic wave shape.
+    // TOP EDGE — each layer offset by i * 0.7 so they sample different parts of the noise field
     for (let x = 0; x <= width; x += 5) {
-      // n1/n2: Perlin noise gives slow organic undulation across the wave
-      let n1 = noise(x * 0.003, noiseOffset + i * 0.8);
-      let n2 = noise(x * 0.009, noiseOffset * 1.5 + i * 0.4) * 0.3;
-      // sinComponent: rolling wave motion layered on top of the noise.
-      // The x * 0.012 / x * 0.007 values control wave frequency (higher = more waves).
-      // The noiseOffset * 2.5 / * 1.8 values control how fast the waves roll.
-      let sinComponent = (sin(x * 0.012 + noiseOffset * 2.5 + i * 0.7) * waveAmp * 0.45
-                       + cos(x * 0.007 + noiseOffset * 1.8 + i * 1.1) * waveAmp * 0.25) * movementScale;
-      // Clamp top edge to never go above the horizon line
-      let y  = max(baseY + map((n1 + n2) / 1.3, 0, 1, -waveAmp, waveAmp) + sinComponent, horizonY);
+      let n = noise(x * 0.0015, noiseOffset + i * 0.4);
+      let y = max(baseY + map(n, 0, 1, -waveAmp, waveAmp) * movementScale, horizonY);
       x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
     }
-    // BOTTOM EDGE — drawn right to left, follows the diagonal shoreline driven by tide height.
-    // shorelineAtX matches the actual beach geometry in the photo (67% down on left, 78% on right).
-    // bottomAtX rises with the tide: low tide exposes pebbles, high tide covers them.
+    // BOTTOM EDGE — diagonal shoreline driven by tide, with independent noise per layer
     for (let x = width; x >= 0; x -= 5) {
       let shorelineAtX = map(x, 0, width, height * 0.67, height * 0.78);
       let bottomAtX    = map(tideHeight, 0, 11, shorelineAtX, height * 0.95);
-      let nb1 = noise(x * 0.005 + 99,  noiseOffset * 0.6  + i * 1.3);
-      let nb2 = noise(x * 0.015 + 200, noiseOffset * 1.1  + i * 2.1) * 0.5;
-      let nb3 = noise(x * 0.040 + 400, noiseOffset * 1.8  + i * 0.9) * 0.25;
-      let y   = bottomAtX + map((nb1 + nb2 + nb3) / 1.75, 0, 1, -waveAmp * 1.8, waveAmp * 1.8);
+      let nb = noise(x * 0.006 + 99, noiseOffset * 0.8 + i * 0.9);
+      let sb = sin(x * 0.015 + noiseOffset * 1.5 + i * 1.2) * waveAmp * 1.4 * windFactor;
+      let y  = bottomAtX + map(nb, 0, 1, -waveAmp * 3.5, waveAmp * 3.5) + sb;
       ctx.lineTo(x, y);
     }
     ctx.closePath();
@@ -301,10 +292,10 @@ function draw() {
   // update and draw foam particles
   noStroke();
   for (let i = particles.length - 1; i >= 0; i--) {
-    let p = particles[i];
-    p.x += p.vx;
-    p.y += p.vy;
-    p.alpha -= 0.5;
+    let p = particles[i]; // each particle has position (x, y), velocity (vx, vy), size, and alpha (opacity)
+    p.x += p.vx; // move particle based on its velocity
+    p.y += p.vy; // move particle based on its velocity
+    p.alpha -= 0.5; // fade out particle by reducing its alpha value each frame
     if (p.alpha <= 0) { particles.splice(i, 1); continue; }
     fill(220, 238, 255, p.alpha);
     circle(p.x, p.y, p.size);
@@ -321,9 +312,9 @@ function draw() {
     let rx     = map(nx, 0, 1, 0, width);
     let rw     = map(nw, 0, 1, width * 0.05, width * 0.18);
     let rh     = map(nw, 0, 1, 2, 7);
-    let alpha  = map(nalpha, 0, 1, 8, 35);
+    let alpha  = map(nalpha, 0, 1, 18, 60);
     stroke(220, 235, 245, alpha);
-    strokeWeight(0.9);
+    strokeWeight(1.0);
     ellipse(rx, ry, rw, rh);
   }
 
@@ -331,9 +322,9 @@ function draw() {
   noFill();
   for (let i = 0; i < waveLayers.length; i++) {
     let depthFactor = i / (waveLayers.length - 1);
-    let zoneTop    = map(depthFactor, 0, 1, waterY, waterY + waterDepth * 0.6);
-    let zoneBottom = map(depthFactor, 0, 1, waterY + waterDepth * 0.2, waterY + waterDepth * 0.9);
-    let rippleCount = floor(map(i, 0, waveLayers.length - 1, 5, 18));
+    let zoneTop    = map(depthFactor, 0, 1, waterY,waterY + waterDepth * 0.75);
+    let zoneBottom = map(depthFactor, 0, 1, waterY + waterDepth * 0.1, waterY + waterDepth * 0.95);
+    let rippleCount = floor(map(i, 0, waveLayers.length - 1, 14, 18));
 
     for (let s = 0; s < rippleCount; s++) {
       // unique noise value for this ripple's Y position — drifts slowly over time
@@ -353,11 +344,10 @@ function draw() {
       // same size noise drives height — keeps width and height proportional
       let rh     = map(nw,     0, 1, 3, 10);
       // map opacity noise to alpha range — 8 (faint) to 45 (visible)
-      let alpha  = map(nalpha, 0, 1, 8, 45);
+      let alpha  = map(nalpha, 0, 1, 20, 70);
 
       stroke(200, 235, 245, alpha);
-      // back ripples are thinner (0.5), front ripples are thicker (1.8) — gives sense of depth
-      strokeWeight(map(depthFactor, 0, 1, 0.5, 1.0));
+      strokeWeight(map(depthFactor, 0, 1, 0.8, 1.6));
       ellipse(rx, ry, rw, rh);
     }
   }
@@ -381,8 +371,10 @@ function draw() {
 
 function keyPressed() {
   if (key === 's') {
-    // records 3 seconds, then saves as lavernock.gif
     saveCanvas('lavernock', 'png');
+  }
+  if (key === 'm' || key === 'M') {
+    moonPreview = !moonPreview;
   }
 }
 
@@ -532,7 +524,7 @@ function fetchMet() {
         let p = feature.properties;
         windSpeed = parseFloat(p.speed);
         dataDate  = parseDataDate(p.date);
-        console.log('Wind:', windSpeed, 'kn', windDirDeg + '°');
+        console.log('Wind:', windSpeed, 'kn');
       }
     })
     .catch(err => console.error('Wind fetch failed:', err));
