@@ -7,6 +7,8 @@ const PORT = 3000;
 const API_KEY = process.env.API_KEY;
 const API_BASE = 'https://coastalmonitoring.org/observations';
 
+app.use(express.static(__dirname));
+
 // Allow requests from Live Server
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');

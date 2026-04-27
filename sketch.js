@@ -424,7 +424,7 @@ function fetchAll() {
 }
 
 function fetchTide() {
-  let url = 'http://localhost:3000/tides';
+  let url = '/tides';
 
   fetch(url)
     .then(response => response.json())
@@ -518,7 +518,7 @@ function parseDataDate(raw) {
 
 
 function fetchMet() {
-  fetch('http://localhost:3000/wind')
+  fetch('/wind')
     .then(response => response.json())
     .then(data => {
       let feature = data.features.find(f => f.properties.speed !== null);
