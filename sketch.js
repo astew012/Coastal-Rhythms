@@ -99,6 +99,7 @@ function setup() {
   for (let p of pebbles) {
     drawPebble(pebbleLayer, p.x, p.y, p.r, p.col, p.scaleX, p.scaleY, p.noiseID, p.tilt);
   }
+  pebbles = [];
 
   fetchAll();
 
@@ -212,26 +213,12 @@ function draw() {
   noiseOffset += 0.020 * windFactor;
   for (let i = 0; i < waveLayers.length; i++) layerOffsets[i] += waveLayers[i].speed * windFactor;
 
-  // ── OLD 8-layer approach (commented out) ──────────────────────────────────
-  // const waveColours = [
-  //   { top: [28, 52, 68], bot: [38, 72, 90], topA: 0.42, botA: 0.63 },
-  //   { top: [30, 65, 82], bot: [40, 85, 105], topA: 0.26, botA: 0.11 },
-  //   { top: [34, 75, 92], bot: [44, 95, 115], topA: 0.20, botA: 0.10 },
-  //   { top: [38, 85, 102], bot: [48, 105, 122], topA: 0.15, botA: 0.08 },
-  //   { top: [42, 95, 110], bot: [52, 115, 130], topA: 0.11, botA: 0.07 },
-  //   { top: [46, 102, 115], bot: [56, 122, 135], topA: 0.06, botA: 0.06 },
-  //   { top: [22, 48, 62], bot: [32, 68, 85], topA: 0.04, botA: 0.15 },
-  //   { top: [65, 132, 138], bot: [88, 155, 160], topA: 0.04, botA: 0.05 },
-  // ];
-  // for (let i = 0; i < waveColours.length; i++) { ... }
-  // ── END old approach ───────────────────────────────────────────────────────
-
   let ctx = drawingContext;
   for (let i = 0; i < 3; i++) {
     let depthFactor = i / 2;
     let baseY    = map(depthFactor, 0, 1, waterY, waterY + waterDepth * 0.75);
     let waveAmp  = map(depthFactor, 0, 1, waterDepth * 0.01, waterDepth * 0.04);
-    let movementScale = map(depthFactor, 0, 1, 3.0, 3.0) * windFactor;
+    let movementScale = 3.0 * windFactor;
     let noiseScale = map(depthFactor, 0, 1, 0.0015, 0.0008);
 
     let r    = floor(lerp(28,  46, depthFactor));
