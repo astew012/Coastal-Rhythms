@@ -2,7 +2,7 @@
 
 A data - driven generative art installation by Anna Stewart as part of Computational Arts MA, Goldsmiths University (2026).
 
-A living mixed media seascape of Lavernock Point, Wales. The sketch responds in real time to live tide height, wind speed, moon phase, and the time of day to create a relaxed natural scene scape.
+A living mixed media seascape of Lavernock Point in South  Wales. The sketch responds in real time to live tide height, wind speed, moon phase, and the time of day to create a relaxed natural scene scape. This piece was designed to be shown in hospitals to provide some distraction aswell as connection and grounding via local natural scenery . 
 
 ---
 
